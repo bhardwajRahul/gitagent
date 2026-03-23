@@ -289,22 +289,20 @@ function collectAllowedTools(agentDir: string): string[] {
  *
  * Gemini CLI expects hooks in settings.json.
  */
-function buildHooksConfig(agentDir: string): Record<string, unknown> | null {
-  const hooksPath = join(agentDir, 'hooks', 'hooks.yaml');
-  if (!existsSync(hooksPath)) return null;
-
+function buildHooksConfig(agentDir: string): Record<string, any> | null {
   try {
-    const content = readFileSync(hooksPath, 'utf-8');
-    const hooksConfig = yaml.load(content) as {
-      hooks?: Record<string, Array<{
-        script: string;
-        description?: string;
-        timeout?: number;
-      }>>;
-    };
+    const hooksPath = join(agentDir, 'hooks', 'hooks.yaml');
+    if (!existsSync(hooksPath)) {
+      return null;
+    }
 
-    if (!hooksConfig?.hooks) return null;
+    const hooksYaml = readFileSync(hooksPath, 'utf-8');
+    const hooksConfig = yaml.load(hooksYaml) as { hooks: Record<string, Array<{ script: string; description?: string }>> };
 
+    if (!hooksConfig.hooks || Object.keys(hooksConfig.hooks).length === 0) {
+      return null;
+    }
+    
     // Map gitagent hook events to Gemini CLI hook events
     // Gemini CLI uses PascalCase event names
     const eventMap: Record<string, string> = {
