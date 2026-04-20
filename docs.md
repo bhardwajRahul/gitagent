@@ -1,8 +1,10 @@
-# gitagent Documentation
+# GitAgentProtocol (Open GAP) Documentation
 
-A framework-agnostic, git-native standard for defining AI agents.
+A framework-agnostic, git-native standard for defining AI agents. `gapman` is the reference CLI (the GitAgentProtocol Manager).
 
 **Clone a repo, get an agent.**
+
+> The package was previously published as `@open-gitagent/gitagent`. Starting with v0.3.0 it is published as [`gapman`](https://www.npmjs.com/package/gapman). Both `gapman` and `gitagent` commands are installed as binaries — they point to the same CLI.
 
 ---
 
@@ -48,14 +50,17 @@ A framework-agnostic, git-native standard for defining AI agents.
 ## Installation
 
 ```bash
-npm install -g @open-gitagent/gitagent
+npm install -g gapman
 ```
 
 Verify:
 
 ```bash
-gitagent --version   # 0.1.0
-gitagent --help
+gapman --version   # 0.3.0
+gapman --help
+
+# gitagent alias also works
+gitagent --version
 ```
 
 ---
